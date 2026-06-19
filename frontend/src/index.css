@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  /* Global type/spacing scale. Bumped ~15% for high-resolution displays. */
+  font-size: 19.5px;
+}
+
+body {
+  margin: 0;
+  font-family: "Gilroy", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: #f4f7fc;
+  color: #272d3f;
+}
+
+@layer components {
+  .card {
+    @apply bg-white border border-cloud rounded-lg shadow-sm;
+  }
+  .btn-primary {
+    @apply bg-orange text-white font-semibold uppercase tracking-wide rounded-md px-5 py-2.5 hover:opacity-90 transition disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply border border-cloud text-navy font-semibold rounded-md px-4 py-2 hover:bg-frost transition;
+  }
+  .input {
+    @apply border border-cloud rounded-md px-3 py-2 text-navy focus:outline-none focus:ring-2 focus:ring-teal/40;
+  }
+}

@@ -1,0 +1,22 @@
+# Domain + statistical-honesty rules. Applied consistently by the stats core
+# and surfaced to the souls so insights never over-claim.
+
+domain:
+  melee_per_stone_threshold_ct: 0.18   # > center stone, <= melee
+  melee_source_default: natural        # melee defaults to natural unless stated
+  color_bands: [D-F, G-H, I-J, K-M, N-Z]
+  clarity_bands: [IF/FL, VVS, VS, SI, I]
+
+significance:
+  min_n_strong: 200        # below this a finding can never be "Strong"
+  min_n_directional: 30    # below this it is "Not significant" / insufficient data
+  alpha: 0.05              # significance level for proportion z-test / trend slope
+  # If a slice's trend direction matches its baseline within tolerance, reframe
+  # the finding as "part of a broader category trend", not slice-specific.
+  baseline_match_tolerance: 0.5  # ratio of slopes considered "same direction/scale"
+
+labels:
+  strong: "Strong"
+  directional: "Directional"
+  not_significant: "Not significant"
+  broader_trend: "Part of a broader trend"

@@ -1,0 +1,195 @@
+# Friendly attribute -> column mapping. The Trends attribute picker and the
+# Chat planner are generated FROM this file. Vocabulary follows the
+# jewelry-appraisal-expert skill. To point at the real DB later, only the
+# `column` values need reconciling.
+
+groups:
+  - key: diamond
+    label: Diamond
+  - key: gemstone
+    label: Gemstone
+  - key: piece
+    label: Piece
+  - key: mounting
+    label: Mounting
+  - key: customer
+    label: Customer
+  - key: watch
+    label: Watch (coming soon)
+
+dimensions:
+  source:
+    label: Diamond Source
+    column: largest_diamond_source
+    group: diamond
+    baseline: all_pieces
+    values: [natural, lab]
+    value_labels: { natural: Natural, lab: Lab-Grown }
+
+  shape:
+    label: Diamond Shape
+    column: shape
+    group: diamond
+    baseline: all_shapes
+    values: [Round, Oval, Princess, Emerald, Cushion, Marquise, Pear, Radiant, Asscher, Heart, Other]
+
+  color_band:
+    label: Diamond Color
+    column: color_band
+    group: diamond
+    baseline: all_pieces
+    values: [D-F, G-H, I-J, K-M, N-Z]
+
+  clarity_band:
+    label: Diamond Clarity
+    column: clarity_band
+    group: diamond
+    baseline: all_pieces
+    values: [IF/FL, VVS, VS, SI, I]
+
+  carat_band:
+    label: Carat Band
+    column: carat_band
+    group: diamond
+    baseline: all_pieces
+    values: ["0.00-0.50", "0.50-1.00", "1.00-1.50", "1.50-2.00", "2.00-2.50", "2.50-3.00", "3.00-4.00", ">4.00"]
+
+  fancy_color:
+    label: Fancy Color
+    column: fancy_color
+    group: diamond
+    baseline: all_fancy
+    values: [Yellow, Pink, Blue, Brown, Green, Gray, "Brown/ish Yellow", "Salt & Pepper", Black, Other]
+
+  fancy_intensity:
+    label: Fancy Intensity
+    column: fancy_intensity
+    group: diamond
+    baseline: all_fancy
+    values: [Faint, "Very Light", Light, Fancy, "Fancy Light", "Fancy Dark", "Fancy Intense", "Fancy Deep", "Fancy Vivid"]
+
+  largest_gemstone_type:
+    label: Gemstone Type
+    column: largest_gemstone_type
+    group: gemstone
+    baseline: all_gemstones
+    values: ["Sapphire - Blue", Emerald, Ruby, Moissanite, Tanzanite, "Topaz - Blue", Amethyst, Aquamarine, "Opal - White", "Sapphire - Green", Morganite, "Sapphire - Pink"]
+
+  gemstone_quality:
+    label: Gemstone Quality
+    column: gemstone_quality
+    group: gemstone
+    baseline: all_gemstones
+    values: [AAA, AA, A, B]
+
+  briteco_category:
+    label: Category
+    column: briteco_category
+    group: piece
+    baseline: all_pieces
+    values: ["Engagement Ring", "Wedding Band", "Other Ring", Earrings, Pendant, Bracelet, Necklace, Other]
+
+  jewelry_type:
+    label: Jewelry Type
+    column: jewelry_type
+    group: piece
+    baseline: all_pieces
+    values: [ring_engagement, ring_wedding, ring_fashion, ring_bridal_set, earrings, pendant, bracelet, necklace, other]
+
+  piece_style:
+    label: Piece Style
+    column: piece_style
+    group: piece
+    baseline: all_pieces
+    values: [ring_solitaire, ring_halo, ring_three_stone, ring_pave, ring_classic, ring_contemporary, fashion, stud, tennis, anniversary, cocktail]
+
+  metal:
+    label: Metal
+    column: metal
+    group: mounting
+    baseline: all_pieces
+    values: [white_gold, yellow_gold, rose_gold, platinum, no_metal]
+
+  metal_grade:
+    label: Metal Grade
+    column: metal_grade
+    group: mounting
+    baseline: all_pieces
+    values: [fourteen_k, eighteen_k, ten_k, "950", "22k", "24k", no_grade]
+
+  setting:
+    label: Setting
+    column: setting
+    group: mounting
+    baseline: all_pieces
+    values: [prong, bezel, channel, pave, scallop, other_setting]
+
+  brand_name:
+    label: Brand
+    column: brand_name
+    group: piece
+    baseline: all_pieces
+    values: [no_brand, cartier, tiffany, van_cleef_arpels, david_yurman, tacori, hearts_on_fire, verragio, other_brand]
+
+  generation:
+    label: Generation
+    column: generation
+    group: customer
+    baseline: all_customers
+    values: ["Gen Z", Millennial, "Gen X", "Baby Boomers", Silent, "Gen Alpha"]
+
+  customer_state:
+    label: US State
+    column: customer_state
+    group: customer
+    baseline: all_customers
+    values: []  # any 2-letter state code
+
+  # --- Watch placeholders (needs the watch dataset; Trends shows a "coming soon" state) ---
+  watch_brand:
+    label: Watch Brand
+    column: null
+    group: watch
+    placeholder: true
+    needs_dataset: watches
+    values: [Rolex, Omega, Cartier, "Patek Philippe", "Audemars Piguet", "TAG Heuer", Breitling, Tudor, "Jaeger-LeCoultre", Other]
+
+  watch_movement:
+    label: Movement
+    column: null
+    group: watch
+    placeholder: true
+    needs_dataset: watches
+    values: [Automatic, Manual, Quartz, Mechanical]
+
+  watch_case_material:
+    label: Case Material
+    column: null
+    group: watch
+    placeholder: true
+    needs_dataset: watches
+    values: ["Stainless Steel", "Yellow Gold", "White Gold", "Rose Gold", Platinum, Titanium, "Two-Tone", Ceramic]
+
+  watch_complication:
+    label: Complication
+    column: null
+    group: watch
+    placeholder: true
+    needs_dataset: watches
+    values: [Chronograph, Date, GMT, Moonphase, "Perpetual Calendar", Tourbillon, "Dive/Rotating Bezel", None]
+
+  watch_condition:
+    label: Condition
+    column: null
+    group: watch
+    placeholder: true
+    needs_dataset: watches
+    values: [New, "Like New", Excellent, Good, Fair, Vintage]
+
+# Baselines: what a selected attribute is compared against in Trends.
+baselines:
+  all_pieces:    { label: All pieces, filter: null }
+  all_shapes:    { label: All diamond shapes, filter: null }
+  all_fancy:     { label: All fancy-color diamonds, filter: "is_fancy = true" }
+  all_gemstones: { label: All gemstone pieces, filter: "largest_gemstone_type IS NOT NULL" }
+  all_customers: { label: All customers, filter: null }

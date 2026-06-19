@@ -1,0 +1,39 @@
+# Metric definitions. agg + column + grain. Both Trends and the Lab vs Natural
+# template reference these so a number means the same thing everywhere.
+
+metrics:
+  piece_count:
+    label: Piece Count
+    agg: count
+    column: "*"
+    format: integer
+
+  avg_appraised_value:
+    label: Average Appraised Value
+    agg: avg
+    column: replacement_value
+    format: currency
+
+  total_appraised_value:
+    label: Total Appraised Value
+    agg: sum
+    column: replacement_value
+    format: currency
+
+  avg_sales_price:
+    label: Average Sales Price
+    agg: avg
+    column: sales_price
+    format: currency
+
+  avg_carat:
+    label: Average Carat (largest diamond)
+    agg: avg
+    column: largest_diamond_weight
+    format: decimal2
+
+  avg_melee_weight:
+    label: Average Melee Total Weight
+    agg: avg
+    column: melee_diamond_total_weight
+    format: decimal2
