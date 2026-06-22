@@ -113,7 +113,7 @@ export default function Shell({ children }: { children: ReactNode }) {
         </header>
 
         <main className="flex-1 overflow-auto">
-          <div className="max-w-[1700px] flex flex-col xl:flex-row items-start gap-6 xl:gap-8 px-4 sm:px-6 lg:px-10 py-6 lg:py-8">
+          <div className="max-w-[1700px] flex flex-col 2xl:flex-row items-start gap-6 2xl:gap-8 px-4 sm:px-6 lg:px-10 py-6 lg:py-8">
             <div className="flex-1 min-w-0 w-full">{children}</div>
             <FactsTray />
           </div>

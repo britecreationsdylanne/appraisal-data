@@ -84,7 +84,7 @@ export default function Reports() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <div className="lg:col-span-5 xl:col-span-4">
+        <div className="lg:col-span-5">
           {tab === "templates" && (
             <div className="space-y-5">
               <TemplateGroup
@@ -142,7 +142,7 @@ export default function Reports() {
           )}
         </div>
 
-        <div className="lg:col-span-7 xl:col-span-8">
+        <div className="lg:col-span-7">
           {!active && <div className="card p-6 text-slate">Run a template or open a saved run to see the fact pack.</div>}
           {active && (
             <div>

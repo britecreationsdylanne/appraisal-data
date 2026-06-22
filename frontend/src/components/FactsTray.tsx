@@ -27,7 +27,7 @@ export default function FactsTray() {
   };
 
   return (
-    <aside className="w-full xl:w-80 shrink-0 card flex flex-col xl:sticky xl:top-6 xl:self-start xl:max-h-[calc(100vh-7rem)] overflow-hidden">
+    <aside className="w-full 2xl:w-80 shrink-0 card flex flex-col 2xl:sticky 2xl:top-6 2xl:self-start 2xl:max-h-[calc(100vh-7rem)] overflow-hidden">
       <div className="px-4 py-3 border-b border-cloud flex items-center justify-between">
         <div className="font-semibold text-navy">Facts Tray</div>
         <div className="flex gap-2">
