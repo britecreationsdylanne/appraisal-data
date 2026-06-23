@@ -8,9 +8,18 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+    # "local" runs the synthetic demo (creates/seeds tables). "production" treats the
+    # appraisal DB as READ-ONLY: no create/alter/seed against it ever.
+    app_env: str = "local"
+
+    # The appraisal database. READ-ONLY in production (real appraisal data).
     database_url: str = (
         "postgresql+psycopg2://appraisal:appraisal@localhost:5436/appraisal_research"
     )
+
+    # The app's own read/write database (saved templates, history, saved items).
+    # Separate instance in production; falls back to `database_url` locally.
+    app_database_url: str = ""
 
     anthropic_api_key: str = ""
 
@@ -32,6 +41,12 @@ class Settings(BaseSettings):
     def souls_live(self) -> bool:
         """True when a real Anthropic key is present; otherwise souls run deterministic."""
         return bool(self.anthropic_api_key.strip())
+
+    @property
+    def is_local(self) -> bool:
+        """Local/dev mode — safe to create + seed the synthetic appraisal tables.
+        In production this is False and the appraisal DB is treated as read-only."""
+        return self.app_env.strip().lower() in ("local", "dev", "development")
 
 
 @lru_cache

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { C } from "../brand";
 
-// us-atlas TopoJSON (state shapes). geo.properties.name = full state name.
-const GEO_URL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
+// us-atlas TopoJSON (state shapes), bundled in /public so it works offline/in-cloud.
+// geo.properties.name = full state name.
+const GEO_URL = "/states-10m.json";
 
 const NAME_TO_CODE: Record<string, string> = {
   Alabama: "AL", Alaska: "AK", Arizona: "AZ", Arkansas: "AR", California: "CA",

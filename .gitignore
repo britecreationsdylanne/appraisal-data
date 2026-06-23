@@ -21,3 +21,7 @@ Thumbs.db
 # Logs / artifacts
 *.log
 backend/_export_sample.svg
+
+# Private — schema/mapping docs (describe production PII tables), data drops, secrets
+_private/
+*.zip

@@ -12,10 +12,10 @@ from sqlalchemy import (
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .db import Base
+from .db import AppraisalBase, AppBase
 
 
-class Appraisal(Base):
+class Appraisal(AppraisalBase):
     """One appraised jewelry piece. Denormalized to mirror the BriteCo dashboards
     and the jewelry-appraisal-expert field vocabulary."""
 
@@ -65,7 +65,7 @@ class Appraisal(Base):
     customer_state: Mapped[str] = mapped_column(String(2), index=True)
 
 
-class SavedTemplate(Base):
+class SavedTemplate(AppBase):
     """A re-runnable report definition (attributes + metrics + visuals)."""
 
     __tablename__ = "saved_templates"
@@ -81,7 +81,7 @@ class SavedTemplate(Base):
     created_by: Mapped[str] = mapped_column(String(120), default="local")
 
 
-class ChatLog(Base):
+class ChatLog(AppBase):
     """A saved Chat question + its answer, so the user has a history like Reports."""
 
     __tablename__ = "chat_logs"
@@ -101,7 +101,7 @@ class ChatLog(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
 
-class ReportRun(Base):
+class ReportRun(AppBase):
     """A dated execution of a template — preserved for year-over-year comparison."""
 
     __tablename__ = "report_runs"
@@ -121,7 +121,7 @@ class ReportRun(Base):
     run_by: Mapped[str] = mapped_column(String(120), default="local")
 
 
-class Watch(Base):
+class Watch(AppraisalBase):
     """Synthetic watch appraisals — mirrors the diamond table's shape so the
     Watch Report works today. Swaps out for the real watch dataset later."""
 
@@ -146,7 +146,7 @@ class Watch(Base):
     customer_state: Mapped[str] = mapped_column(String(2), index=True)
 
 
-class SavedItem(Base):
+class SavedItem(AppBase):
     """Generic per-user saved history for Trends runs and exported Images."""
 
     __tablename__ = "saved_items"

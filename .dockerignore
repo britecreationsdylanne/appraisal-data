@@ -1,0 +1,14 @@
+**/node_modules
+**/venv
+**/.venv
+**/__pycache__
+**/*.pyc
+frontend/dist
+frontend/.vite
+backend/static
+_private
+*.zip
+*.log
+.git
+.gitignore
+DESIGN.md

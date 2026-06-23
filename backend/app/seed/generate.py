@@ -12,7 +12,7 @@ import pandas as pd
 from sqlalchemy import text
 
 from ..config import get_settings
-from ..db import Base, SessionLocal, engine
+from ..db import AppBase, AppraisalBase, SessionLocal, app_engine, appraisal_engine
 from ..templates_seed import seed_templates
 from .. import models  # noqa: F401  (register tables)
 
@@ -242,29 +242,31 @@ def build_watch_frame(n: int) -> pd.DataFrame:
 
 def seed_watches_if_empty(n: int = 18000) -> int:
     """Insert synthetic watches only if the table is empty (non-destructive)."""
-    Base.metadata.create_all(engine)
-    with engine.connect() as c:
+    AppraisalBase.metadata.create_all(appraisal_engine)
+    with appraisal_engine.connect() as c:
         existing = c.execute(text("SELECT COUNT(*) FROM watches")).scalar()
     if existing:
         return int(existing)
-    build_watch_frame(n).to_sql("watches", engine, if_exists="append", index=False,
+    build_watch_frame(n).to_sql("watches", appraisal_engine, if_exists="append", index=False,
                                 chunksize=5000, method="multi")
-    with engine.connect() as c:
+    with appraisal_engine.connect() as c:
         return int(c.execute(text("SELECT COUNT(*) FROM watches")).scalar())
 
 
 def run(n: int | None = None) -> int:
+    """Full local reseed of the synthetic appraisal/watch tables. Local-only."""
     n = n or settings.seed_rows
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
+    AppraisalBase.metadata.drop_all(appraisal_engine)
+    AppraisalBase.metadata.create_all(appraisal_engine)
     df = build_frame(n)
-    df.to_sql("appraisals", engine, if_exists="append", index=False, chunksize=5000, method="multi")
-    build_watch_frame(18000).to_sql("watches", engine, if_exists="append", index=False,
+    df.to_sql("appraisals", appraisal_engine, if_exists="append", index=False, chunksize=5000, method="multi")
+    build_watch_frame(18000).to_sql("watches", appraisal_engine, if_exists="append", index=False,
                                     chunksize=5000, method="multi")
+    AppBase.metadata.create_all(app_engine)  # ensure app tables exist
     with SessionLocal() as s:
-        seed_templates(s)
+        seed_templates(s)  # writes SavedTemplate -> app DB (via binds)
         s.commit()
-    with engine.connect() as c:
+    with appraisal_engine.connect() as c:
         count = c.execute(text("SELECT COUNT(*) FROM appraisals")).scalar()
         wcount = c.execute(text("SELECT COUNT(*) FROM watches")).scalar()
     print(f"Seeded {count} appraisals + {wcount} watches + report templates.")
